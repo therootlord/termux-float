@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    ndkVersion '21.3.6528147'
     defaultConfig {
         applicationId "com.termux.window"
         minSdkVersion 21
@@ -11,6 +12,12 @@ android {
     }
 
     signingConfigs {
+        release {
+            storeFile file("release-key.keystore")
+            storePassword 'password'
+            keyAlias 'alias'
+            keyPassword 'password'
+        }
         debug {
             storeFile file('dev_keystore.jks')
             keyAlias 'alias'
@@ -24,6 +31,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
         debug {
